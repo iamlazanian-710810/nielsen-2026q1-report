@@ -3,605 +3,335 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>好事聯播網 2026 Q1 Nielsen 廣播競爭分析報告</title>
+<title>Nielsen 2026 Q1 ｜ 好事聯播網四大區域競爭分析</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: "微軟正黑體", "Microsoft JhengHei", "PingFang TC", sans-serif;
-    background: #f4f6f9;
-    color: #222;
-    font-size: 13px;
-  }
-  .cover {
-    background: linear-gradient(135deg, #1F3864 0%, #2E75B6 60%, #C9A227 100%);
-    color: white;
-    padding: 60px 40px;
-    text-align: center;
-    margin-bottom: 0;
-  }
-  .cover h1 { font-size: 28px; margin-bottom: 12px; letter-spacing: 2px; }
-  .cover h2 { font-size: 18px; opacity: 0.85; font-weight: normal; margin-bottom: 8px; }
-  .cover .meta { font-size: 12px; opacity: 0.7; margin-top: 16px; }
-
-  .container { max-width: 1400px; margin: 0 auto; padding: 24px 20px; }
-
-  .section-title {
-    background: linear-gradient(90deg, #1F3864, #2E75B6);
-    color: white;
-    padding: 10px 18px;
-    font-size: 15px;
-    font-weight: bold;
-    margin: 24px 0 12px 0;
-    border-radius: 4px;
-    letter-spacing: 1px;
-  }
-  .sub-title {
-    background: #2E75B6;
-    color: white;
-    padding: 7px 14px;
-    font-size: 13px;
-    font-weight: bold;
-    margin: 16px 0 8px 0;
-    border-radius: 3px;
-  }
-
-  /* ─── 數據表格 ─── */
-  .data-table { width: 100%; border-collapse: collapse; font-size: 11.5px; margin-bottom: 20px; }
-  .data-table th {
-    background: #1F3864;
-    color: white;
-    padding: 6px 4px;
-    text-align: center;
-    border: 1px solid #4472C4;
-    white-space: nowrap;
-  }
-  .data-table th.best-radio { background: #C9A227; color: white; }
-  .data-table td {
-    padding: 4px 5px;
-    text-align: center;
-    border: 1px solid #ccc;
-    white-space: nowrap;
-  }
-  .data-table tr:nth-child(even) td { background: #f8f9fb; }
-  .data-table tr:nth-child(odd) td { background: #fff; }
-  .data-table td.hour { background: #EBF3FB; font-weight: bold; color: #1F3864; }
-
-  /* 第一名 */
-  .rank1-best { background: #C6EFCE !important; color: #375623; font-weight: bold; }
-  .rank1-rival { background: #FCE4D6 !important; color: #C00000; font-weight: bold; }
-  .best-cell { background: #EBF3FB !important; color: #1F3864; }
-
-  /* ─── SWOT 卡片 ─── */
-  .swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
-  .swot-card { border-radius: 6px; padding: 16px; }
-  .swot-s { background: #E2EFDA; border-left: 5px solid #375623; }
-  .swot-w { background: #FCE4D6; border-left: 5px solid #C00000; }
-  .swot-o { background: #FFF2CC; border-left: 5px solid #BF8F00; }
-  .swot-t { background: #F4CCCC; border-left: 5px solid #900; }
-  .swot-card h3 { font-size: 14px; margin-bottom: 10px; }
-  .swot-s h3 { color: #375623; }
-  .swot-w h3 { color: #C00000; }
-  .swot-o h3 { color: #7F6000; }
-  .swot-t h3 { color: #7F0000; }
-  .swot-card ul { padding-left: 16px; }
-  .swot-card li { margin-bottom: 7px; line-height: 1.6; font-size: 12px; }
-
-  /* ─── 時段摘要 ─── */
-  .slot-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
-  .slot-card {
-    background: white;
-    border-radius: 6px;
-    padding: 14px;
-    border-top: 4px solid #2E75B6;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-  }
-  .slot-card h3 { font-size: 13px; color: #1F3864; margin-bottom: 8px; font-weight: bold; }
-  .slot-card .persona { font-size: 11px; color: #666; margin-bottom: 8px; background: #f0f4fa; padding: 4px 6px; border-radius: 3px; }
-  .slot-card .region { font-size: 11px; margin: 4px 0; }
-  .slot-card .region strong { color: #C9A227; }
-
-  /* ─── 競爭摘要表 ─── */
-  .summary-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px; }
-  .summary-table th { background: #1F3864; color: white; padding: 8px; text-align: center; border: 1px solid #4472C4; }
-  .summary-table td { padding: 7px 10px; border: 1px solid #ddd; vertical-align: top; line-height: 1.6; }
-  .summary-table tr:nth-child(even) td { background: #f8f9fb; }
-  .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: bold; margin: 1px; }
-  .badge-green { background: #C6EFCE; color: #375623; }
-  .badge-red   { background: #FCE4D6; color: #C00000; }
-  .badge-yellow{ background: #FFF2CC; color: #7F6000; }
-
-  /* ─── 策略建議 ─── */
-  .rec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .rec-card { background: white; border-radius: 6px; padding: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); border-left: 4px solid #2E75B6; }
-  .rec-card h3 { color: #1F3864; font-size: 13px; margin-bottom: 8px; }
-  .rec-card p { font-size: 12px; line-height: 1.7; color: #333; }
-  .rec-card .priority { font-size: 10px; background: #2E75B6; color: white; padding: 2px 8px; border-radius: 8px; display: inline-block; margin-bottom: 8px; }
-  .priority-high { background: #C00000 !important; }
-  .priority-med  { background: #BF8F00 !important; }
-
-  footer { text-align: center; padding: 20px; color: #888; font-size: 11px; background: #1F3864; color: #ccc; margin-top: 30px; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: "微軟正黑體", "Microsoft JhengHei", "PingFang TC", sans-serif; background: #f5f6fa; color: #222; font-size: 14px; line-height: 1.6; }
+.page { max-width: 1200px; margin: 0 auto; padding: 24px 20px; }
+.report-header { background: #1F3864; color: #fff; border-radius: 10px; padding: 22px 28px; margin-bottom: 20px; }
+.report-header h1 { font-size: 20px; font-weight: 500; margin-bottom: 4px; }
+.report-header p  { font-size: 12px; color: rgba(255,255,255,0.65); }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: #555; margin-bottom: 18px; }
+.leg-dot { width: 12px; height: 12px; border-radius: 3px; display: inline-block; margin-right: 5px; vertical-align: middle; }
+.tabs { display: flex; gap: 4px; flex-wrap: wrap; border-bottom: 2px solid #dde1ec; margin-bottom: 22px; }
+.tab { padding: 7px 18px; border: 1px solid #dde1ec; border-bottom: none; border-radius: 7px 7px 0 0; font-size: 13px; cursor: pointer; background: #eef0f7; color: #555; }
+.tab:hover { background: #dde1ec; }
+.tab.active { background: #fff; border-color: #185FA5; border-bottom-color: #fff; color: #185FA5; font-weight: 500; position: relative; bottom: -2px; }
+.pane { display: none; }
+.pane.active { display: block; }
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 22px; }
+.kpi { background: #fff; border: 1px solid #dde1ec; border-radius: 8px; padding: 14px 18px; }
+.kpi-label { font-size: 12px; color: #888; margin-bottom: 4px; }
+.kpi-val { font-size: 26px; font-weight: 500; color: #1F3864; }
+.kpi-sub { font-size: 11px; color: #aaa; margin-top: 2px; }
+.kpi-warn .kpi-val { color: #C0392B; }
+.sec-hdr { font-size: 14px; font-weight: 500; color: #1F3864; border-left: 4px solid #185FA5; padding-left: 10px; margin: 22px 0 12px; }
+.sub-sec-hdr { font-size: 13px; font-weight: 500; color: #555; margin: 16px 0 8px; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 18px; }
+th { background: #eef0f7; color: #444; font-weight: 500; padding: 7px 8px; border: 1px solid #dde1ec; text-align: left; white-space: nowrap; }
+td { padding: 7px 8px; border: 1px solid #dde1ec; color: #222; }
+tr.hoshi-first td { background: #C6EFCE; }
+tr.hoshi td { background: #D9E1F2; }
+tr.comp-first td { background: #FCE4D6; }
+tr.dagong td { background: #FFF2CC; }
+tr.alt td { background: #f9f9fb; }
+.badge { display: inline-block; font-size: 10px; font-weight: 500; padding: 1px 6px; border-radius: 3px; margin-left: 4px; white-space: nowrap; }
+.badge-green { background: #C6EFCE; color: #1F6B3B; }
+.badge-red { background: #FCE4D6; color: #C0392B; }
+.badge-amber { background: #FFF2CC; color: #7a5c00; border: 1px solid #e0c060; }
+.warn-note { background: #FFF3CD; border: 1px solid #f0c040; border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #7a5c00; margin-bottom: 16px; }
+.info-note { background: #e8f4fd; border: 1px solid #b8d8f0; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #1a5f8a; margin-bottom: 16px; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+.insight-box { background: #fff; border: 1px solid #dde1ec; border-radius: 8px; padding: 14px 16px; font-size: 13px; color: #333; line-height: 1.8; }
+.footer { margin-top: 32px; padding-top: 14px; border-top: 1px solid #dde1ec; font-size: 11px; color: #aaa; text-align: center; }
 </style>
 </head>
 <body>
-
-<div class="cover">
-  <h1>好事聯播網 競爭態勢分析報告</h1>
-  <h2>Nielsen Media Research 廣播大調查 2026 年 第一季</h2>
-  <h2>北基區 ‧ 中彰投區 ‧ 高屏區 ‧ 宜花東區</h2>
-  <div class="meta">資料來源：Nielsen Media Research 2026Q1 七日 AM/FM 廣播收聽率調查 ‧ 製作：好事聯播網行銷企劃部</div>
+<div class="page">
+  <div class="report-header">
+    <h1>Nielsen Media Research 2026 Q1 ｜ 好事聯播網四大區域競爭分析</h1>
+    <p>資料來源：Nielsen Media Research 廣播大調查（2026年 第一季）　　基數：過去七天廣播聽眾　　判定依據：收聽人數(k)，非佔有率%</p>
+  </div>
+  <div class="legend">
+    <span><span class="leg-dot" style="background:#C6EFCE;border:1px solid #1F6B3B"></span>好事陣營 + 第一名</span>
+    <span><span class="leg-dot" style="background:#D9E1F2;border:1px solid #185FA5"></span>好事陣營（非第一）</span>
+    <span><span class="leg-dot" style="background:#FCE4D6;border:1px solid #C0392B"></span>在地競對 + 第一名</span>
+    <span><span class="leg-dot" style="background:#FFF2CC;border:1px solid #c0a000"></span>大功率電台（全國性）</span>
+    <span><span class="leg-dot" style="background:#f9f9fb;border:1px solid #ccc"></span>在地競對</span>
+  </div>
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('overview',this)">競爭總覽</button>
+    <button class="tab" onclick="showTab('beiji',this)">北基區</button>
+    <button class="tab" onclick="showTab('zhong',this)">中彰投區</button>
+    <button class="tab" onclick="showTab('gaoping',this)">高屏區</button>
+    <button class="tab" onclick="showTab('yihua',this)">宜花東區</button>
+    <button class="tab" onclick="showTab('dagong',this)">大功率電台</button>
+  </div>
+  <div class="pane active" id="pane-overview">
+    <div class="kpi-grid">
+      <div class="kpi"><div class="kpi-label">北基區 第一名</div><div class="kpi-val">281k</div><div class="kpi-sub">好事 989（領先飛碟 +66k）</div></div>
+      <div class="kpi"><div class="kpi-label">中彰投區 第一名</div><div class="kpi-val">217k</div><div class="kpi-sub">好事 903（全國廣播緊追 201k，差距僅 16k）</div></div>
+      <div class="kpi"><div class="kpi-label">高屏區 第一名</div><div class="kpi-val">346k</div><div class="kpi-sub">港都電台・好事983（絕對主導，+276k）</div></div>
+      <div class="kpi kpi-warn"><div class="kpi-label">宜花東區 ⚠ 好事第二</div><div class="kpi-val">28k</div><div class="kpi-sub">好事 935 落後北宜產業電台 2k</div></div>
+    </div>
+    <div class="sec-hdr">四大區域完整競爭排名（含大功率）</div>
+    <div style="position:relative;height:360px;background:#fff;border-radius:8px;padding:16px;border:1px solid #dde1ec;margin-bottom:22px"><canvas id="overviewChart" role="img" aria-label="四大區域電台收聽人數橫向比較"></canvas></div>
+    <div class="sec-hdr">好事聯播網競爭態勢速覽</div>
+    <table>
+      <tr><th>區域</th><th>好事電台</th><th>人數 (k)</th><th>最強在地競對</th><th>最強大功率競對</th><th>態勢</th></tr>
+      <tr class="hoshi-first"><td>北基區</td><td>好事 989</td><td><strong>281</strong> <span class="badge badge-green">第一</span></td><td>飛碟台北台 215k（+66k）</td><td>中廣流行網 183k（+98k）</td><td>穩定領先</td></tr>
+      <tr class="hoshi-first"><td>中彰投區</td><td>好事 903</td><td><strong>217</strong> <span class="badge badge-green">在地第一</span></td><td>全國廣播 201k（+16k）</td><td>中廣流行網 220k（<span style="color:#C0392B">▲超越 -3k</span>）</td><td>⚠ 大功率已超越在地第一</td></tr>
+      <tr class="hoshi-first"><td>高屏區</td><td>港都電台（好事 983）</td><td><strong>346</strong> <span class="badge badge-green">第一</span></td><td>南台灣之聲 70k（+276k）</td><td>中廣流行網 114k（+232k）</td><td>絕對主導</td></tr>
+      <tr class="comp-first"><td>宜花東區</td><td>好事 935</td><td>28</td><td>北宜產業 30k <span class="badge badge-red">第一</span>（-2k）</td><td>中廣流行網 23k（+5k）</td><td>⚠ 落後第一</td></tr>
+    </table>
+  </div>
+  <div class="pane" id="pane-beiji">
+    <div class="info-note">大功率欄（底色標示）為中廣流行網、ICRT、中廣新聞網在北基區（大台北）的收聽人數，已統一使用相同地理範圍進行橫向比較。</div>
+    <div class="sec-hdr">北基區　完整競爭排名（在地電台 + 大功率）</div>
+    <table>
+      <tr><th>排名</th><th>電台</th><th>類型</th><th>人數 (k)</th><th>男 (k)</th><th>女 (k)</th><th>男性佔比</th></tr>
+      <tr class="hoshi-first"><td>1</td><td>好事 989 <span class="badge badge-green">第一</span></td><td>在地・好事</td><td><strong>281</strong></td><td>184</td><td>97</td><td>65.5%</td></tr>
+      <tr><td>2</td><td>飛碟台北台</td><td>在地競對</td><td>215</td><td>147</td><td>67</td><td>68.7%</td></tr>
+      <tr class="dagong"><td>3</td><td>中廣流行網 (i like radio) <span class="badge badge-amber">大功率</span></td><td>全國性</td><td>183</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr class="dagong"><td>4</td><td>ICRT <span class="badge badge-amber">大功率</span></td><td>全國性</td><td>153</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr class="alt"><td>5</td><td>寶島新聲電台</td><td>在地競對</td><td>91</td><td>67</td><td>24</td><td>73.5%</td></tr>
+      <tr><td>6</td><td>臺北廣播電臺</td><td>在地競對</td><td>83</td><td>50</td><td>33</td><td>60.2%</td></tr>
+      <tr class="alt"><td>7</td><td>健康電台</td><td>在地競對</td><td>55</td><td>38</td><td>17</td><td>69.2%</td></tr>
+      <tr class="dagong"><td>8</td><td>中廣新聞網 <span class="badge badge-amber">大功率</span></td><td>全國性</td><td>38</td><td>—</td><td>—</td><td>—</td></tr>
+    </table>
+    <div class="two-col">
+      <div>
+        <div class="sub-sec-hdr">縣市涵蓋分布 (k)</div>
+        <table>
+          <tr><th>電台</th><th>基隆市</th><th>台北市</th><th>新北市</th><th>其他</th></tr>
+          <tr class="hoshi-first"><td>好事 989</td><td>18</td><td>82</td><td>149</td><td>32</td></tr>
+          <tr><td>飛碟台北台</td><td>9</td><td>94</td><td>80</td><td>32</td></tr>
+          <tr class="alt"><td>寶島新聲</td><td>11</td><td>30</td><td>28</td><td>22</td></tr>
+          <tr><td>臺北廣播</td><td>5</td><td>37</td><td>30</td><td>11</td></tr>
+          <tr class="alt"><td>健康電台</td><td>2</td><td>23</td><td>16</td><td>14</td></tr>
+        </table>
+        <div class="sub-sec-hdr">個人月收入分布 (k)</div>
+        <table>
+          <tr><th>電台</th><th>&lt;1萬</th><th>1–2萬</th><th>2–4萬</th><th>4–6萬</th><th>6–9萬</th><th>&gt;9萬</th></tr>
+          <tr class="hoshi-first"><td>好事 989</td><td>16</td><td>8</td><td>42</td><td>92</td><td>57</td><td>35</td></tr>
+          <tr><td>飛碟台北台</td><td>11</td><td>5</td><td>19</td><td>66</td><td>44</td><td>45</td></tr>
+          <tr class="alt"><td>寶島新聲</td><td>8</td><td>2</td><td>15</td><td>22</td><td>12</td><td>8</td></tr>
+          <tr><td>臺北廣播</td><td>1</td><td>2</td><td>9</td><td>31</td><td>23</td><td>15</td></tr>
+          <tr class="alt"><td>健康電台</td><td>5</td><td>1</td><td>9</td><td>10</td><td>16</td><td>4</td></tr>
+        </table>
+      </div>
+      <div>
+        <div class="sub-sec-hdr">年齡結構（聽眾組成比例 %）</div>
+        <div style="position:relative;height:200px;background:#fff;border-radius:8px;padding:12px;border:1px solid #dde1ec"><canvas id="beijiAgeChart" role="img" aria-label="北基區各電台年齡結構"></canvas></div>
+        <div class="sub-sec-hdr" style="margin-top:14px">北基區洞察</div>
+        <div class="insight-box">
+          <strong>中廣流行網（183k）、ICRT（153k）是北基最重要的隱形競爭者</strong>——合計吸走北基超過330k聽眾，等同好事989的1.2倍。<br><br>
+          好事989的核心受眾集中在<strong>新北市（149k，佔53%）</strong>，郊區通勤族為主力，與 ICRT 的都會雙語族群幾乎沒有重疊。<br><br>
+          飛碟台北台在高收入層（&gt;9萬，45k）超越好事989（35k），爭奪台北市白領空間激烈。
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pane" id="pane-zhong">
+    <div class="warn-note">⚠ 中彰投重要發現：修正後中廣流行網（220k）聽眾人數超越好事903（217k），成為中彰投整體最大電台，差距僅3k。在地競爭同樣激烈：好事903（217k）對全國廣播（201k），差距16k。</div>
+    <div class="info-note">大功率數字使用台中市+彰化縣+南投縣範圍，與在地電台地理範圍一致。</div>
+    <div class="sec-hdr">中彰投區　完整競爭排名（在地電台 + 大功率）</div>
+    <table>
+      <tr><th>排名</th><th>電台</th><th>類型</th><th>人數 (k)</th><th>男 (k)</th><th>女 (k)</th><th>男性佔比</th></tr>
+      <tr class="dagong"><td>1</td><td>中廣流行網 (i like radio) <span class="badge badge-amber">大功率</span></td><td>全國性</td><td><strong>220</strong></td><td>—</td><td>—</td><td>—</td></tr>
+      <tr class="hoshi-first"><td>2</td><td>好事 903 <span class="badge badge-green">在地第一</span></td><td>在地・好事</td><td><strong>217</strong></td><td>127</td><td>90</td><td>58.3%</td></tr>
+      <tr><td>3</td><td>全國廣播</td><td>在地競對</td><td>201</td><td>110</td><td>91</td><td>54.7%</td></tr>
+      <tr class="alt"><td>4</td><td>大千電台</td><td>在地競對</td><td>182</td><td>109</td><td>73</td><td>59.9%</td></tr>
+      <tr><td>5</td><td>城市廣播</td><td>在地競對</td><td>145</td><td>76</td><td>69</td><td>52.5%</td></tr>
+      <tr class="alt"><td>6</td><td>南投廣播</td><td>在地競對</td><td>119</td><td>65</td><td>53</td><td>55.0%</td></tr>
+      <tr><td>7</td><td>真善美電台</td><td>在地競對</td><td>109</td><td>56</td><td>53</td><td>51.2%</td></tr>
+      <tr class="dagong"><td>8</td><td>ICRT <span class="badge badge-amber">大功率</span></td><td>全國性</td><td>84</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr class="dagong"><td>9</td><td>中廣新聞網 <span class="badge badge-amber">大功率</span></td><td>全國性</td><td>41</td><td>—</td><td>—</td><td>—</td></tr>
+    </table>
+    <div class="sec-hdr">縣市涵蓋分布 (k)　—　含大台中細項</div>
+    <p style="font-size:11px;color:#999;margin-bottom:8px">※ 數字均來自Nielsen跨區圖表實際數值</p>
+    <table>
+      <tr><th>電台</th><th>台中市（舊台中市）</th><th>台中市（舊台中縣）</th><th>大台中（新制合計）</th><th>彰化縣</th><th>南投縣</th></tr>
+      <tr class="dagong"><td>中廣流行網 <span class="badge badge-amber">大功率</span></td><td>51</td><td>60</td><td><strong>111</strong></td><td>72</td><td>37</td></tr>
+      <tr class="hoshi-first"><td>好事 903</td><td>60</td><td>71</td><td><strong>131</strong></td><td>52</td><td>21</td></tr>
+      <tr><td>全國廣播</td><td>87</td><td>47</td><td><strong>134</strong></td><td>50</td><td>9</td></tr>
+      <tr class="alt"><td>大千電台</td><td>78</td><td>38</td><td><strong>116</strong></td><td>45</td><td>18</td></tr>
+      <tr><td>城市廣播</td><td>20</td><td>27</td><td><strong>47</strong></td><td>69</td><td>13</td></tr>
+      <tr class="alt"><td>南投廣播</td><td>50</td><td>11</td><td><strong>61</strong></td><td>29</td><td>23</td></tr>
+      <tr><td>真善美電台</td><td>59</td><td>10</td><td><strong>69</strong></td><td>20</td><td>13</td></tr>
+      <tr class="dagong"><td>ICRT <span class="badge badge-amber">大功率</span></td><td>23</td><td>30</td><td><strong>53</strong></td><td>21</td><td>10</td></tr>
+      <tr class="dagong"><td>中廣新聞網 <span class="badge badge-amber">大功率</span></td><td>8</td><td>13</td><td><strong>21</strong></td><td>13</td><td>7</td></tr>
+    </table>
+    <div class="two-col">
+      <div>
+        <div class="sub-sec-hdr">個人月收入分布 (k)</div>
+        <table>
+          <tr><th>電台</th><th>&lt;1萬</th><th>1–2萬</th><th>2–4萬</th><th>4–6萬</th><th>6–9萬</th><th>&gt;9萬</th></tr>
+          <tr class="hoshi-first"><td>好事 903</td><td>17</td><td>4</td><td>48</td><td>51</td><td>38</td><td>21</td></tr>
+          <tr><td>全國廣播</td><td>5</td><td>14</td><td>44</td><td>64</td><td>33</td><td>22</td></tr>
+          <tr class="alt"><td>大千電台</td><td>7</td><td>9</td><td>38</td><td>45</td><td>42</td><td>15</td></tr>
+          <tr><td>城市廣播</td><td>11</td><td>9</td><td>32</td><td>32</td><td>23</td><td>11</td></tr>
+          <tr class="alt"><td>南投廣播</td><td>6</td><td>8</td><td>21</td><td>46</td><td>18</td><td>12</td></tr>
+          <tr><td>真善美</td><td>9</td><td>1</td><td>16</td><td>47</td><td>24</td><td>7</td></tr>
+        </table>
+      </div>
+      <div>
+        <div class="sub-sec-hdr">年齡結構比較圖</div>
+        <div style="position:relative;height:200px;background:#fff;border-radius:8px;padding:12px;border:1px solid #dde1ec"><canvas id="zhongAgeChart" role="img" aria-label="中彰投區年齡結構"></canvas></div>
+        <div class="sub-sec-hdr" style="margin-top:14px">中彰投洞察</div>
+        <div class="insight-box">
+          全國廣播在4–6萬月收入（64k）<strong>超越好事903（51k）</strong>，中產工作族滲透更強。<br><br>
+          南投廣播主要涵蓋大台中（61k，佔其總聽眾51%），南投縣聽眾（23k，19%）反不是其大本營。<br><br>
+          大功率三台合計（220+84+41=345k）在中彰投規模龐大，中廣流行網（220k）更為中彰投整體收聽第一。大功率是此區不可忽視的隱形競爭者。
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pane" id="pane-gaoping">
+    <div class="warn-note">⚠ 高屏區最大發現：將大功率加入後，中廣流行網（114k）實為高屏<strong>第二大電台</strong>，超越南台灣之聲（70k），是港都電台真正的隱形競爭者。</div>
+    <div class="info-note">大功率數字使用高雄市（新制）+屏東縣範圍，與在地電台地理範圍一致。</div>
+    <div class="sec-hdr">高屏區　完整競爭排名（在地電台 + 大功率）</div>
+    <table>
+      <tr><th>排名</th><th>電台</th><th>類型</th><th>人數 (k)</th><th>男 (k)</th><th>女 (k)</th><th>男性佔比</th></tr>
+      <tr class="hoshi-first"><td>1</td><td>港都電台（好事 983）<span class="badge badge-green">第一</span></td><td>在地・好事</td><td><strong>346</strong></td><td>173</td><td>174</td><td>50.0%</td></tr>
+      <tr class="dagong"><td>2</td><td>中廣流行網 (i like radio) <span class="badge badge-amber">大功率</span></td><td>全國性</td><td>114</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>3</td><td>南台灣之聲</td><td>在地競對</td><td>70</td><td>45</td><td>25</td><td>64.3%</td></tr>
+      <tr class="dagong"><td>4</td><td>ICRT <span class="badge badge-amber">大功率</span></td><td>全國性</td><td>53</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr class="dagong"><td>5</td><td>中廣新聞網 <span class="badge badge-amber">大功率</span></td><td>全國性</td><td>15</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr class="dagong"><td>6</td><td>中廣（不知道哪一台）<span class="badge badge-amber">大功率</span></td><td>全國性</td><td>6</td><td>—</td><td>—</td><td>—</td></tr>
+    </table>
+    <div class="two-col">
+      <div>
+        <div class="sub-sec-hdr">縣市涵蓋分布 (k)</div>
+        <table>
+          <tr><th>電台</th><th>高雄市（舊高市）</th><th>高雄市（舊雄縣）</th><th>高雄市（新制）</th><th>屏東縣</th></tr>
+          <tr class="hoshi-first"><td>港都電台</td><td>172</td><td>62</td><td><strong>233</strong></td><td>99</td></tr>
+          <tr><td>南台灣之聲</td><td>29</td><td>11</td><td><strong>40</strong></td><td>20</td></tr>
+          <tr class="dagong"><td>中廣流行網</td><td>49</td><td>33</td><td><strong>83</strong></td><td>31</td></tr>
+          <tr class="dagong"><td>ICRT</td><td>27</td><td>10</td><td><strong>36</strong></td><td>17</td></tr>
+          <tr class="dagong"><td>中廣新聞網</td><td>7</td><td>5</td><td><strong>12</strong></td><td>3</td></tr>
+        </table>
+        <div class="sub-sec-hdr">個人月收入分布 (k)</div>
+        <table>
+          <tr><th>電台</th><th>&lt;1萬</th><th>1–2萬</th><th>2–4萬</th><th>4–6萬</th><th>6–9萬</th><th>&gt;9萬</th></tr>
+          <tr class="hoshi-first"><td>港都電台</td><td>18</td><td>20</td><td>96</td><td>82</td><td>53</td><td>40</td></tr>
+          <tr><td>南台灣之聲</td><td>1</td><td>2</td><td>12</td><td>27</td><td>11</td><td>14</td></tr>
+        </table>
+      </div>
+      <div>
+        <div class="sub-sec-hdr">年齡結構（聽眾組成比例 %）</div>
+        <table>
+          <tr><th>電台</th><th>12–29歲</th><th>30–44歲</th><th>45–59歲</th><th>60歲+</th></tr>
+          <tr class="hoshi-first"><td>港都電台</td><td>13%</td><td>49%</td><td>28%</td><td>11%</td></tr>
+          <tr><td>南台灣之聲</td><td>16%</td><td>47%</td><td>26%</td><td>11%</td></tr>
+        </table>
+        <div class="sub-sec-hdr" style="margin-top:14px">高屏洞察</div>
+        <div class="insight-box">
+          <strong>重要發現：</strong>中廣流行網在高屏區吸走 114k 聽眾，是南台灣之聲（70k）的 1.6 倍。這意味著高屏市場的真實競爭格局是：<br><br>
+          港都電台 346k → 中廣流行網 114k → 南台灣之聲 70k → ICRT 53k<br><br>
+          港都電台的男女比例 50:50，是四區中唯一均衡的電台，廣告受眾池最寬，亦是廣告主最偏好的特性。
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pane" id="pane-yihua">
+    <div class="warn-note">⚠ 宜花東是好事唯一落後區域。加入大功率後，競爭更複雜：北宜產業30k → 好事935 28k → 中廣流行網23k，三者差距均在 7k 以內。</div>
+    <div class="info-note">大功率數字使用宜蘭縣+花蓮縣+台東縣範圍，與在地電台地理範圍一致。</div>
+    <div class="sec-hdr">宜花東區　完整競爭排名（在地電台 + 大功率）</div>
+    <table>
+      <tr><th>排名</th><th>電台</th><th>類型</th><th>人數 (k)</th><th>男 (k)</th><th>女 (k)</th><th>縣市涵蓋</th></tr>
+      <tr class="comp-first"><td>1</td><td>北宜產業電台 <span class="badge badge-red">第一</span></td><td>在地競對</td><td><strong>30</strong></td><td>18</td><td>12</td><td>宜蘭縣為主</td></tr>
+      <tr class="hoshi"><td>2</td><td>好事 935</td><td>在地・好事</td><td>28</td><td>19</td><td>9</td><td>宜蘭、花蓮</td></tr>
+      <tr class="dagong"><td>3</td><td>中廣流行網 (i like radio) <span class="badge badge-amber">大功率</span></td><td>全國性</td><td>23</td><td>—</td><td>—</td><td>宜16k、花5k、東2k</td></tr>
+      <tr class="alt"><td>4</td><td>太魯閣之音</td><td>在地競對</td><td>7</td><td>4</td><td>3</td><td>花蓮縣（原住民族）</td></tr>
+      <tr><td>5</td><td>台東知本電台</td><td>在地競對</td><td>4</td><td>2</td><td>2</td><td>台東縣</td></tr>
+      <tr class="dagong"><td>6</td><td>ICRT <span class="badge badge-amber">大功率</span></td><td>全國性</td><td>2</td><td>—</td><td>—</td><td>主要宜蘭縣</td></tr>
+      <tr class="dagong"><td>7</td><td>中廣新聞網 <span class="badge badge-amber">大功率</span></td><td>全國性</td><td>2</td><td>—</td><td>—</td><td>宜1k、花1k</td></tr>
+    </table>
+    <div class="two-col">
+      <div>
+        <div class="sub-sec-hdr">年齡結構（聽眾組成比例 %）</div>
+        <table>
+          <tr><th>電台</th><th>12–29歲</th><th>30–44歲</th><th>45–59歲</th><th>60歲+</th></tr>
+          <tr class="comp-first"><td>北宜產業</td><td>5%</td><td>22%</td><td>42%</td><td>31%</td></tr>
+          <tr class="hoshi"><td>好事 935</td><td>6%</td><td>25%</td><td>43%</td><td>26%</td></tr>
+          <tr class="alt"><td>太魯閣之音</td><td>4%</td><td>20%</td><td>38%</td><td>38%</td></tr>
+          <tr><td>台東知本</td><td>5%</td><td>21%</td><td>40%</td><td>34%</td></tr>
+        </table>
+        <div class="sub-sec-hdr">縣市收聽人數對比 (k)</div>
+        <table>
+          <tr><th>電台/縣市</th><th>宜蘭縣</th><th>花蓮縣</th><th>台東縣</th></tr>
+          <tr class="comp-first"><td>北宜產業電台</td><td>~24</td><td>~4</td><td>~2</td></tr>
+          <tr class="hoshi"><td>好事 935</td><td>~18</td><td>~7</td><td>~3</td></tr>
+          <tr class="dagong"><td>中廣流行網</td><td>16</td><td>5</td><td>2</td></tr>
+        </table>
+      </div>
+      <div>
+        <div class="sub-sec-hdr">宜花東策略洞察</div>
+        <div class="insight-box">
+          <strong>差 2k 就是第一名。</strong>這在抽樣誤差邊緣，卻在Nielsen報告上呈現「第二」。<br><br>
+          好事935 的年齡結構優於北宜產業：30–44歲族群 25% vs 22%，長期成長性較佳。<br><br>
+          中廣流行網（23k）在宜花東的規模不容忽視——它的宜蘭縣16k，幾乎達到好事935宜蘭縣的 89%，已形成三方競局。<br><br>
+          北宜產業最大優勢在宜蘭縣地緣，若好事935能加強花蓮在地節目製作，空間明顯存在。
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pane" id="pane-dagong">
+    <div class="info-note">
+      <strong>定義說明：</strong>「大功率電台」為全台播出的全國性廣播電台，與各地區在地電台分開計算。<br>
+      本報告大功率電台包含：<strong>中廣流行網（i like radio）</strong>、<strong>ICRT</strong>、<strong>中廣新聞網</strong>、<strong>中廣（不知道哪一台）</strong>。<br>
+      <strong>好事聯播網（好事989 / 好事903 / 港都電台 / 好事935）屬在地電台，不在大功率範疇內。</strong>
+    </div>
+    <div class="sec-hdr">大功率電台　全台收聽概覽</div>
+    <table>
+      <tr><th>電台</th><th>全台 (k)</th><th>男性 (k)</th><th>女性 (k)</th><th>男性佔比</th><th>受眾特徵</th></tr>
+      <tr class="dagong"><td><strong>中廣流行網 (i like radio)</strong> <span class="badge badge-amber">大功率</span></td><td><strong>743</strong></td><td>421</td><td>322</td><td>56.7%</td><td>全台最大單一廣播品牌</td></tr>
+      <tr><td>ICRT</td><td>316</td><td>202</td><td>114</td><td>63.9%</td><td>英語族群為主、北部集中</td></tr>
+      <tr class="alt"><td>中廣新聞網</td><td>130</td><td>93</td><td>38</td><td>71.2%</td><td>男性嚴重偏重（新聞取向）</td></tr>
+      <tr><td>中廣（不知道哪一台）</td><td>53</td><td>34</td><td>19</td><td>64.2%</td><td>品牌辨識度較低</td></tr>
+    </table>
+    <div class="sec-hdr">大功率 × 四大區域　各區收聽人數對比（使用相同地理範圍）</div>
+    <table>
+      <tr><th>電台</th><th>北基區（大台北）</th><th>中彰投區（台中+彰化+南投）</th><th>高屏區（高雄新制+屏東）</th><th>宜花東區（宜+花+東）</th></tr>
+      <tr class="dagong"><td>中廣流行網 (i like radio)</td><td>183</td><td>220</td><td>114</td><td>23</td></tr>
+      <tr><td>ICRT</td><td>153</td><td>84</td><td>53</td><td>2</td></tr>
+      <tr class="alt"><td>中廣新聞網</td><td>38</td><td>41</td><td>15</td><td>2</td></tr>
+      <tr><td>中廣（不知道）</td><td>15</td><td>15</td><td>6</td><td>0</td></tr>
+      <tr style="border-top:2px solid #ccc">
+        <td style="color:#555;font-weight:500;font-size:11px">▶ 好事電台（各區）</td>
+        <td style="background:#C6EFCE;font-weight:500">好事989：281</td>
+        <td style="background:#C6EFCE;font-weight:500">好事903：217</td>
+        <td style="background:#C6EFCE;font-weight:500">港都電台：346</td>
+        <td style="background:#FCE4D6;font-weight:500">好事935：28</td>
+      </tr>
+    </table>
+    <p style="font-size:11px;color:#aaa;margin-bottom:20px">中彰投區大功率數字：中廣流行網(111+72+37)k、ICRT(53+21+10)k、中廣新聞網(21+13+7)k，為台中市(新制)+彰化縣+南投縣實際加總；高屏區：中廣流行網(83+31)k、ICRT(36+17)k、中廣新聞網(12+3)k，為高雄市(新制)+屏東縣實際加總；宜花東為宜蘭+花蓮+台東加總（均來自Nielsen跨區分布圖表）</p>
+    <div class="sec-hdr">大功率洞察</div>
+    <div class="insight-box" style="line-height:2">
+      <strong>中廣流行網是全台最大廣播品牌（743k），但它和好事聯播網是截然不同的競爭者。</strong><br><br>
+      中彰投區關鍵發現：中廣流行網在中彰投（220k）超越好事903（217k），成為中彰投整體收聽第一，差距僅3k，是好事903最直接的隱形競爭壓力。<br><br>
+      高屏區同樣值得關注：中廣流行網在高屏吸走 114k 聽眾，是高屏第二大廣播力量，比南台灣之聲（70k）更具威脅性，也是港都電台真正的隱形對手。<br><br>
+      ICRT 的北部集中特性非常明顯：北基 153k vs 宜花東 2k，差距 76 倍，顯示其受眾幾乎只在大台北，對中南東部幾乎沒有影響力。<br><br>
+      中廣新聞網男性受眾佔比 71.2%，與好事各台的受眾結構重疊度低，廣告市場目標族群分野明確。
+    </div>
+  </div>
+  <div class="footer">Nielsen Media Research 廣播大調查 2026年 第一季　｜　好事聯播網內部分析報告　｜　Cowork / Claude AI</div>
 </div>
-
-<div class="container">
-
-<!-- ════════════════════════════════════
-     一、競爭電台定義與人口基數
-     ════════════════════════════════════ -->
-<div class="section-title">▍一、各區競爭電台與加權人口基數</div>
-<table class="data-table">
-  <tr>
-    <th>區域</th>
-    <th>好事聯播網</th>
-    <th>競爭電台 1</th>
-    <th>競爭電台 2</th>
-    <th>競爭電台 3</th>
-    <th>競爭電台 4</th>
-    <th>競爭電台 5</th>
-  </tr>
-  <tr>
-    <td class="hour">北基區</td>
-    <td class="best-cell"><strong>好事989 (281k)</strong></td>
-    <td>飛碟台北台 (215k)</td>
-    <td>寶島新聲 (91k)</td>
-    <td>健康電台 (55k)</td>
-    <td>臺北廣播電台 (83k)</td>
-    <td>—</td>
-  </tr>
-  <tr>
-    <td class="hour">中彰投區</td>
-    <td class="best-cell"><strong>好事903 (217k)</strong></td>
-    <td>全國廣播 (201k)</td>
-    <td>大千電台 (182k)</td>
-    <td>城市廣播 (145k)</td>
-    <td>南投廣播 (119k)</td>
-    <td>真善美電台 (109k)</td>
-  </tr>
-  <tr>
-    <td class="hour">高屏區</td>
-    <td class="best-cell"><strong>好事983／港都電台 (346k)</strong></td>
-    <td>南台灣之聲 (70k)</td>
-    <td>—</td>
-    <td>—</td>
-    <td>—</td>
-    <td>—</td>
-  </tr>
-  <tr>
-    <td class="hour">宜花東區</td>
-    <td class="best-cell"><strong>好事935 (26k)</strong></td>
-    <td>太魯閣之音 (15k)</td>
-    <td>北宜產業 (30k)</td>
-    <td>台東知本 (5k)</td>
-    <td>—</td>
-    <td>—</td>
-  </tr>
-</table>
-<p style="font-size:11px;color:#666;margin-bottom:8px">★ = 該時段第一名（以人數 AQH 判定）；綠底 = 好事第一；橙底 = 競爭對手第一；藍底 = 好事非第一</p>
-
-<!-- ════════════════════════════════════
-     二、北基區全時段數據
-     ════════════════════════════════════ -->
-<div class="section-title">▍二、北基區全時段競爭交叉表（人數 k / 佔有率 %）</div>
-<div style="overflow-x:auto">
-<table class="data-table">
-  <thead>
-    <tr>
-      <th rowspan="2">時段</th>
-      <th colspan="2" class="best-radio">★ 好事989<br>(281k)</th>
-      <th colspan="2">飛碟台北台<br>(215k)</th>
-      <th colspan="2">寶島新聲<br>(91k)</th>
-      <th colspan="2">健康電台<br>(55k)</th>
-      <th colspan="2">臺北廣播電台<br>(83k)</th>
-      <th>第一名</th>
-    </tr>
-    <tr>
-      <th>人數k</th><th>佔有率</th>
-      <th>人數k</th><th>佔有率</th>
-      <th>人數k</th><th>佔有率</th>
-      <th>人數k</th><th>佔有率</th>
-      <th>人數k</th><th>佔有率</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody id="north-tbody">
-    <!-- JS will fill -->
-  </tbody>
-</table>
-</div>
-
-<!-- ════════════════════════════════════
-     三、中彰投區全時段數據
-     ════════════════════════════════════ -->
-<div class="section-title">▍三、中彰投區全時段競爭交叉表（人數 k / 佔有率 %）</div>
-<div style="overflow-x:auto">
-<table class="data-table">
-  <thead>
-    <tr>
-      <th rowspan="2">時段</th>
-      <th colspan="2">全國廣播<br>(201k)</th>
-      <th colspan="2">大千電台<br>(182k)</th>
-      <th colspan="2">城市廣播<br>(145k)</th>
-      <th colspan="2" class="best-radio">★ 好事903<br>(217k)</th>
-      <th colspan="2">南投廣播<br>(119k)</th>
-      <th colspan="2">真善美電台<br>(109k)</th>
-      <th>第一名</th>
-    </tr>
-    <tr>
-      <th>人數k</th><th>佔有率</th>
-      <th>人數k</th><th>佔有率</th>
-      <th>人數k</th><th>佔有率</th>
-      <th>人數k</th><th>佔有率</th>
-      <th>人數k</th><th>佔有率</th>
-      <th>人數k</th><th>佔有率</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody id="central-tbody"></tbody>
-</table>
-</div>
-
-<!-- ════════════════════════════════════
-     四、高屏區 & 宜花東區
-     ════════════════════════════════════ -->
-<div class="section-title">▍四、高屏區 &amp; 宜花東區全時段競爭交叉表</div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-<div>
-<div class="sub-title">高屏區（好事983 ／ 港都電台）</div>
-<div style="overflow-x:auto">
-<table class="data-table">
-  <thead>
-    <tr>
-      <th rowspan="2">時段</th>
-      <th colspan="2" class="best-radio">★ 好事983／港都電台<br>(346k)</th>
-      <th colspan="2">南台灣之聲 (70k)</th>
-      <th>第一名</th>
-    </tr>
-    <tr>
-      <th>人數k</th><th>佔有率</th>
-      <th>人數k</th><th>佔有率</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody id="south-tbody"></tbody>
-</table>
-</div>
-</div>
-
-<div>
-<div class="sub-title">宜花東區</div>
-<div style="overflow-x:auto">
-<table class="data-table">
-  <thead>
-    <tr>
-      <th rowspan="2">時段</th>
-      <th colspan="2" class="best-radio">★ 好事935<br>(26k)</th>
-      <th colspan="2">太魯閣之音<br>(15k)</th>
-      <th colspan="2">北宜產業<br>(30k)</th>
-      <th colspan="2">台東知本<br>(5k)</th>
-      <th>第一名</th>
-    </tr>
-    <tr>
-      <th>人數k</th><th>佔有率</th>
-      <th>人數k</th><th>佔有率</th>
-      <th>人數k</th><th>佔有率</th>
-      <th>人數k</th><th>佔有率</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody id="east-tbody"></tbody>
-</table>
-</div>
-</div>
-</div>
-
-<!-- ════════════════════════════════════
-     五、四大關鍵時段分析
-     ════════════════════════════════════ -->
-<div class="section-title">▍五、四大關鍵時段受眾行為分析</div>
-<div class="slot-grid">
-  <div class="slot-card">
-    <h3>07-09 晨間通勤</h3>
-    <div class="persona">👥 上班族 / 家長 ｜需求：提神音樂、即時路況氣象</div>
-    <div class="region"><strong>北基：</strong>好事989 41-58k★ 領先，飛碟37-42k緊追（07:00差距僅4k）</div>
-    <div class="region"><strong>中彰投：</strong>好事903 07:00 31k <span style="color:#C00000">落後</span>全國廣播41k；08:00 逆轉以56k稱霸</div>
-    <div class="region"><strong>高屏：</strong>好事983（港都電台）41-55k 絕對領先，南台灣之聲僅6-8k</div>
-    <div class="region"><strong>宜花東：</strong>好事935 7-8k / 北宜產業 7-9k 近身競爭</div>
-  </div>
-  <div class="slot-card" style="border-top-color:#375623">
-    <h3>09-13 上午辦公</h3>
-    <div class="persona">👥 白領 / SOHO / 主婦 ｜需求：穩定背景音樂、輕生活資訊</div>
-    <div class="region"><strong>北基：</strong>好事989 38-52k★ 穩居第一，寶島新聲10:00 24k為北基最高</div>
-    <div class="region"><strong>中彰投：</strong>好事903 40-49k★，12:00 全國廣播以30k微超</div>
-    <div class="region"><strong>高屏：</strong>好事983（港都）57-72k 峰值 11:00，南台灣之聲以10k次之</div>
-    <div class="region"><strong>宜花東：</strong>北宜產業11:00 16k★ 全區最高，好事935 11k次之</div>
-  </div>
-  <div class="slot-card" style="border-top-color:#C9A227">
-    <h3>13-17 下午續航</h3>
-    <div class="persona">👥 勞動者 / 業務 ｜需求：趣味話題、高能量流行、點歌互動</div>
-    <div class="region"><strong>北基：</strong>好事989 31-40k★ 穩定領先，飛碟僅9-15k，差距擴大</div>
-    <div class="region"><strong>中彰投：</strong>好事903 <span style="color:#375623;font-weight:bold">14:00 59k 全日峰值</span>，16:00 52k 絕對統治</div>
-    <div class="region"><strong>高屏：</strong>好事983（港都）60-84k，<span style="color:#375623">14:00 84k 聯播網四台全日最高</span></div>
-    <div class="region"><strong>宜花東：</strong>北宜產業 14:00 9k★，好事935 14:00 2k偏弱</div>
-  </div>
-  <div class="slot-card" style="border-top-color:#C00000">
-    <h3>17-20 傍晚下班</h3>
-    <div class="persona">👥 下班族 / 外食族 ｜需求：舒壓放鬆、娛樂新聞、排行榜</div>
-    <div class="region"><strong>北基：</strong>好事989 18:00 51k★ 達下午段峰，飛碟26k大幅落後</div>
-    <div class="region"><strong>中彰投：</strong>好事903 18:00 32k★，19:00 全國廣播14k重奪頭名</div>
-    <div class="region"><strong>高屏：</strong>好事983（港都）48-72k★ 全時段領先，南台灣 17:00 20k（28.2% 站內收聽率）</div>
-    <div class="region"><strong>宜花東：</strong>好事935 17:00 4k，太魯閣之音19:00 8k突增</div>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════
-     六、SWOT 分析
-     ════════════════════════════════════ -->
-<div class="section-title">▍六、好事聯播網 SWOT 競爭態勢分析</div>
-<div class="swot-grid">
-  <div class="swot-card swot-s">
-    <h3>S 優勢 (Strengths)</h3>
-    <ul>
-      <li><strong>北基全時段統治力：</strong>好事989 在北基區 21/24 個時段奪冠，07:00-20:00 幾乎全線領先，品牌黏著度高</li>
-      <li><strong>中彰投午後絕對強勢：</strong>好事903 從 08:00 至 18:00 主導中彰投，14:00 峰值 59k 遠超競爭對手，廣告溢價空間大</li>
-      <li><strong>好事983（港都電台）高屏全面制霸：</strong>14:00 AQH 84k 是聯播網四台全日最高，09-18 時段對南台灣之聲享有 5-10 倍優勢，廣告溢價空間最大</li>
-      <li><strong>聯播網四區全覆蓋：</strong>好事989（北基）、好事903（中彰投）、好事983（高屏）、好事935（宜花東）整包購買，廣告主一次觸及台灣四大廣播市場，議價能力強</li>
-      <li><strong>宜花東固定聽眾基礎：</strong>好事935 在小市場表現突出（10:00 AQH=11k，佔有率達 40.4%），在地忠誠度可觀</li>
-    </ul>
-  </div>
-  <div class="swot-card swot-w">
-    <h3>W 劣勢 (Weaknesses)</h3>
-    <ul>
-      <li><strong>北基 05:00 失守：</strong>臺北廣播電台以 4k 搶占第一，好事989 僅 3k，清晨節目競爭力不足</li>
-      <li><strong>北基 12:00 脆弱：</strong>飛碟台北台以 34k 貼近好事989 之 36k，差距僅 2k，午間聽眾保留率有隱憂</li>
-      <li><strong>北基 21:00 平手：</strong>飛碟以 17k 與好事989 同為最高，夜間節目競爭力待補強</li>
-      <li><strong>中彰投 07-13 時段弱勢：</strong>07:00 全國廣播 41k &gt; 好事903 31k；12-13:00 再度輸給全國廣播（43k v.s. 35k），晨間首選地位未建立</li>
-      <li><strong>好事983 南台灣之聲 17-18:00 回追壓力：</strong>南台灣之聲 17:00 達 20k / 28.2% 站內收聽率，下班時段有接近趨勢，高屏傍晚節目不宜大意</li>
-      <li><strong>宜花東 14:00 弱勢：</strong>好事935 僅 2k，落後北宜產業之 9k 甚遠，下午時段嚴重流失</li>
-    </ul>
-  </div>
-  <div class="swot-card swot-o">
-    <h3>O 機會 (Opportunities)</h3>
-    <ul>
-      <li><strong>飛碟台北台 13:00 後大幅衰退：</strong>從 12:00 34k 驟降至 13:00 12k，好事989 可加大午後推廣力道擴大差距</li>
-      <li><strong>中彰投 14-18:00 廣告黃金時段：</strong>好事903 午後 52-59k 統治，可包裝為「下午強檔廣告組合」提升廣告收益</li>
-      <li><strong>中彰投夜間內容空白：</strong>20:00 後真善美/南投廣播領跑，顯示夜間有受眾但好事903 內容不夠吸引，有改版機會</li>
-      <li><strong>宜花東 09-12:00 北宜壟斷：</strong>北宜產業 11:00 達 16k，此時段有固定聽眾需求，好事935 可強化上午辦公族節目</li>
-      <li><strong>好事983 高屏午後廣告黃金組合：</strong>14:00（84k）到 16:00（75k）三小時全區無對手，可打包「高屏下午強檔」套裝廣告方案，搭配好事903 中彰投同時段形成南北雙強廣告聯乘效果</li>
-    </ul>
-  </div>
-  <div class="swot-card swot-t">
-    <h3>T 威脅 (Threats)</h3>
-    <ul>
-      <li><strong>飛碟台北台晨間快速追擊：</strong>07:00 差距僅 4k（37k vs 41k），且飛碟人口基數 215k 小於好事989 281k，表示飛碟的聽眾效率更高，難以維持優勢</li>
-      <li><strong>全國廣播在彰化/台中早段統治：</strong>07:00 及 12-13:00 多次反超好事903，顯示當地聽眾對全國廣播的晨間品牌偏好已形成</li>
-      <li><strong>宜花東北宜產業的壟斷：</strong>11:00 以 16k 領先好事935 之 5k 超過 3 倍，當地聽眾黏性深厚，逆轉難度高</li>
-      <li><strong>南台灣之聲下班段爬升：</strong>17:00 以 28.2% 超高站內收聽率快速回追，若持續擴大聽眾基礎，高屏傍晚時段的領先優勢可能縮小</li>
-      <li><strong>數位媒體侵蝕：</strong>Podcast/串流對 18-35 歲族群廣播收聽持續侵蝕（產業共同威脅）</li>
-    </ul>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════
-     七、競爭摘要表
-     ════════════════════════════════════ -->
-<div class="section-title">▍七、好事聯播網各區全日第一名勝率摘要</div>
-<table class="summary-table">
-  <tr>
-    <th>區域</th>
-    <th>好事電台</th>
-    <th>勝出時段（AQH最高）</th>
-    <th>落敗/平手時段</th>
-    <th>最強時段</th>
-    <th>最弱時段</th>
-    <th>主要競爭對手</th>
-  </tr>
-  <tr>
-    <td><strong>北基區</strong></td>
-    <td class="best-cell">好事989</td>
-    <td><span class="badge badge-green">21/24 時段</span></td>
-    <td>00:00（寶島/飛碟），05:00（臺北廣播），21:00（平手）</td>
-    <td>08:00 ★58k/6.9%</td>
-    <td>05:00（3k/3.6%）</td>
-    <td>飛碟台北台（尤其07:00、12:00、21:00）</td>
-  </tr>
-  <tr>
-    <td><strong>中彰投區</strong></td>
-    <td class="best-cell">好事903</td>
-    <td><span class="badge badge-green">17/24 時段</span></td>
-    <td>07:00、12:00、13:00、19:00、21:00（全國廣播），20:00（真善美電台）</td>
-    <td>14:00 ★59k/27.3%</td>
-    <td>07:00（31k，落後全國廣播 10k）</td>
-    <td>全國廣播（晨段/午前），大千電台（午後17:00）</td>
-  </tr>
-  <tr>
-    <td><strong>高屏區</strong></td>
-    <td class="best-cell">好事983（港都電台）</td>
-    <td><span class="badge badge-green">23/24 時段</span></td>
-    <td>03:00 南台灣之聲 1k 平手（夜深無顯著差距）</td>
-    <td>★14:00 84k/24.2%（聯播網四台全日最高）</td>
-    <td>17:00 南台灣之聲 20k 回追（南台灣 28.2% 站內率）</td>
-    <td>南台灣之聲（傍晚時段站內率快速成長）</td>
-  </tr>
-  <tr>
-    <td><strong>宜花東區</strong></td>
-    <td class="best-cell">好事935</td>
-    <td><span class="badge badge-yellow">約 9/24 時段</span></td>
-    <td>11-15:00 北宜產業主導，07:00 與太魯閣之音並列</td>
-    <td>10:00 ★11k/40.4%</td>
-    <td>14:00（2k，落後北宜9k甚遠）</td>
-    <td>北宜產業（上午段），太魯閣之音（08-12:00）</td>
-  </tr>
-</table>
-
-<!-- ════════════════════════════════════
-     八、策略行動建議
-     ════════════════════════════════════ -->
-<div class="section-title">▍八、戰略行動建議</div>
-<div class="rec-grid">
-  <div class="rec-card">
-    <div class="priority priority-high">優先級：高</div>
-    <h3>🎯 北基 12:00 防守：午間強化留客</h3>
-    <p>飛碟台北台在 12:00 以 34k 逼近好事989 之 36k，差距僅 2k。建議在午間（11:45-13:00）加強熱門話題橋段、即時娛樂新聞連結，鎖定午餐族聽眾，避免 Q2 出現被超越風險。</p>
-  </div>
-  <div class="rec-card">
-    <div class="priority priority-high">優先級：高</div>
-    <h3>🚀 中彰投 07:00 攻勢：奪回早晨黃金時段</h3>
-    <p>好事903 在 07:00 以 31k 落後全國廣播 41k（差距 10k），是目前最明顯的策略缺口。建議推出在地化晨間路況播報、台中彰化特定生活服務內容，縮短與全國廣播的差距。</p>
-  </div>
-  <div class="rec-card">
-    <div class="priority">優先級：中</div>
-    <h3>💡 中彰投 14-16:00 廣告強化定價</h3>
-    <p>好事903 在 14:00（59k）、16:00（52k）達到午後壓倒性領先，應包裝為「中台灣下午廣告強檔」，提供廣告主跨時段組合方案，此時段享有 20-27% 的聽眾涵蓋率，定價可高於競爭對手 25-30%。</p>
-  </div>
-  <div class="rec-card">
-    <div class="priority">優先級：中</div>
-    <h3>📦 高屏＋中彰投跨區廣告聯乘方案</h3>
-    <p>好事983（高屏）與好事903（中彰投）在 14-16:00 均達到各自區域的絕對高峰（84k vs 52-59k）。建議開發「南北雙強下午組合」廣告套裝，同時覆蓋高屏與中台灣的午後黃金聽眾，對品牌廣告主提供更高 CPP 合理性，主動進行溢價定價。</p>
-  </div>
-  <div class="rec-card">
-    <div class="priority priority-med">優先級：中</div>
-    <h3>🌸 北基 21:00 節目改版：突破夜間平局</h3>
-    <p>21:00 好事989 與飛碟台北台同為 17k，是難得的弱點時段。建議引入互動性節目（如聽眾點歌、深夜話題討論），拉開差距，守住夜間聽眾。</p>
-  </div>
-  <div class="rec-card">
-    <div class="priority priority-med">優先級：中</div>
-    <h3>🏔️ 宜花東差異化定位：在地稀缺資訊優勢</h3>
-    <p>宜花東市場雖小但競爭者（北宜產業）具有強烈在地性。建議好事935 強化花蓮/台東觀光旅遊資訊、氣象即時播報，與北宜產業做出差異。同時鎖定 08-10:00 時段進行重點廣告銷售。</p>
-  </div>
-</div>
-
-</div><!-- /container -->
-
-<footer>
-  資料來源：Nielsen Media Research 廣播大調查 2026 年第一季報告 ‧ 分析範疇：AM/FM 七日平均收聽率（AQH）
-  ‧ 數據說明：* 代表有收聽但未滿千人；- 代表無數據或可忽略；★ 代表該時段收聽人數第一名
-  <br>本報告由好事聯播網行銷企劃部製作，僅供內部使用。
-</footer>
-
 <script>
-// ══════════════════════════════════════════════
-// 數據定義
-// ══════════════════════════════════════════════
-const HOURS = Array.from({length:24}, (_,h) => `${String(h).padStart(2,'0')}:00-${String(h).padStart(2,'0')}:59`);
-
-// [AQH_k, share%]  0 = dash, -1 = asterisk (<1k)
-const NORTH = {
-  "好事989":        [[2,4.4],[6,11.5],[5,10.3],[2,5.1],[4,7.7],[3,3.6],[14,6.1],[41,5.6],[58,6.9],[48,6.3],[52,6.1],[38,5.0],[36,5.4],[31,5.0],[37,5.0],[40,5.0],[37,5.2],[39,4.7],[51,8.9],[31,7.5],[23,6.7],[17,7.6],[14,9.9],[6,10.7]],
-  "飛碟台北台":     [[3,4.8],[4,7.0],[3,7.3],[2,4.7],[1,2.7],[1,0.9],[2,0.9],[37,5.1],[42,4.9],[23,3.0],[25,2.9],[22,2.9],[34,5.0],[12,1.9],[9,1.2],[11,1.3],[15,2.1],[23,2.8],[26,4.5],[19,4.7],[16,4.9],[17,7.6],[13,9.1],[2,3.0]],
-  "寶島新聲":       [[3,6.2],[3,5.7],[-1,1.1],[0,0],[-1,1.0],[3,3.8],[2,0.9],[7,1.0],[20,2.3],[17,2.2],[24,2.9],[19,2.4],[14,2.2],[11,1.9],[15,2.1],[15,1.8],[16,2.3],[14,1.6],[7,1.1],[11,2.7],[7,2.0],[6,2.8],[4,2.8],[-1,0.8]],
-  "健康電台":       [[1,1.1],[-1,0.8],[2,4.5],[1,3.0],[1,1.2],[1,1.6],[5,2.1],[5,0.8],[9,1.1],[7,0.9],[7,0.8],[10,1.2],[9,1.4],[5,0.9],[2,0.3],[11,1.3],[6,0.9],[5,0.6],[4,0.7],[5,1.2],[7,1.7],[7,2.9],[3,2.1],[1,1.6]],
-  "臺北廣播電台":   [[2,3.6],[2,2.9],[1,2.4],[1,1.8],[2,3.9],[4,4.3],[5,2.2],[6,0.8],[8,0.9],[5,0.7],[8,0.8],[7,0.9],[11,1.6],[2,0.4],[7,1.0],[7,0.8],[7,1.0],[10,1.2],[15,2.5],[11,2.7],[3,0.9],[2,1.0],[4,2.6],[0,0]],
-};
-const NORTH_BEST = "好事989";
-
-const CENTRAL = {
-  "全國廣播":   [[5,2.4],[2,0.9],[2,4.2],[1,1.8],[0,0],[4,2.2],[9,4.1],[41,20.5],[42,4.9],[30,15.1],[29,14.5],[26,13.1],[30,15.0],[43,21.6],[27,13.5],[33,16.3],[28,13.9],[37,18.5],[27,13.5],[14,6.9],[7,3.6],[7,3.3],[3,1.6],[5,2.6]],
-  "大千電台":   [[3,1.9],[2,3.4],[2,4.6],[1,1.5],[0,0],[2,2.4],[12,6.8],[34,18.5],[25,13.5],[16,8.7],[22,11.8],[21,10.6],[22,11.2],[39,21.6],[32,17.4],[38,20.8],[32,17.5],[41,22.3],[21,11.3],[7,3.7],[9,5.0],[3,1.2],[1,0.5],[1,0.5]],
-  "城市廣播":   [[5,3.7],[2,4.2],[2,4.9],[-1,1.1],[-1,1.0],[4,2.5],[5,3.5],[27,18.7],[26,18.2],[31,21.7],[22,15.1],[15,10.6],[17,11.4],[15,10.6],[15,10.5],[21,14.5],[18,12.4],[26,18.3],[9,6.4],[9,2.2],[4,2.8],[4,1.8],[2,1.1],[1,0.8]],
-  "好事903":    [[5,2.5],[4,7.8],[3,1.5],[2,3.5],[1,0.4],[2,0.4],[6,6.5],[31,14.5],[56,25.7],[49,22.7],[47,21.6],[40,18.6],[27,12.6],[35,16.2],[59,27.3],[41,19.1],[52,23.8],[46,21.2],[32,14.9],[9,4.1],[7,3.0],[5,2.1],[4,1.9],[5,2.3]],
-  "南投廣播":   [[4,3.3],[2,3.0],[2,4.0],[2,3.3],[0,0],[0,0],[3,2.0],[16,13.7],[17,14.6],[9,4.0],[16,13.5],[14,12.2],[23,12.5],[19,15.7],[24,20.5],[10,10.3],[16,13.1],[18,14.9],[9,7.6],[2,2.2],[8,7.1],[4,4.4],[2,2.4],[1,1.4]],
-  "真善美電台": [[4,3.9],[1,2.0],[2,4.4],[1,2.1],[0,0],[0,0],[0,0],[2,1.9],[5,4.9],[13,11.8],[8,7.8],[6,5.4],[14,12.9],[13,11.8],[11,10.5],[12,7.1],[22,20.2],[8,7.2],[21,18.9],[7,6.1],[10,8.9],[5,4.4],[1,1.4],[2,3.5]],
-};
-const CENTRAL_BEST = "好事903";
-
-const SOUTH = {
-  "港都電台":     [[0,0],[1,1.8],[0,0],[2,4.7],[2,4.2],[1,1.3],[17,7.5],[41,12.0],[55,15.8],[57,16.5],[66,19.0],[72,20.7],[54,15.5],[60,17.4],[84,24.2],[80,23.0],[75,21.6],[72,20.8],[48,13.7],[38,10.9],[25,7.1],[17,4.9],[3,0.8],[1,0.3]],
-  "南台灣之聲":   [[0,0],[0,0],[0,0],[1,1.6],[1,1.0],[0,0],[5,7.4],[6,9.2],[8,11.5],[10,14.3],[6,8.7],[10,13.7],[8,11.1],[1,1.0],[4,5.1],[3,3.8],[13,18.4],[20,28.2],[15,21.1],[7,9.4],[6,8.7],[1,2.0],[0,0],[2,2.9]],
-};
-
-const EAST = {
-  "好事935":    [[0,0],[0,0],[0,0],[0,0],[0,0],[1,2.3],[0,0],[3,9.7],[7,27.0],[8,31.9],[11,40.4],[5,18.6],[5,19.4],[3,9.7],[2,6.8],[3,10.8],[2,8.5],[4,14.0],[1,4.0],[3,11.2],[1,5.4],[0,0],[0,0],[0,0]],
-  "太魯閣之音": [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[3,18.8],[7,49.2],[8,51.9],[6,38.9],[6,41.8],[2,16.7],[2,12.5],[0,0],[4,25.2],[1,4.1],[0,0],[1,3.9],[8,8.0],[0,0],[0,0],[0,0],[0,0]],
-  "北宜產業":   [[0,0],[0,0],[1,2.0],[0,0],[0,0],[0,0],[0,0],[1,2.0],[7,23.9],[9,32.1],[13,44.3],[16,55.3],[6,27.8],[8,27.8],[9,31.2],[11,36.9],[10,33.4],[3,10.5],[2,6.3],[5,5.0],[2,2.2],[0,0],[0,0],[0,0]],
-  "台東知本":   [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[2,30.2],[1,27.0],[0,0],[2,39.0],[2,34.0],[2,30.2],[1,19.1],[0,0],[1,19.1],[1,19.1],[0,0],[1,11.1],[2,27.9],[1,11.1],[0,0],[0,0],[0,0]],
-};
-const EAST_BEST = "好事935";
-
-// ══════════════════════════════════════════════
-// Table builder
-// ══════════════════════════════════════════════
-function getRank1(dataObj, hr) {
-  const vals = Object.entries(dataObj).map(([k,v]) => [k, v[hr][0]]);
-  const maxV = Math.max(...vals.map(([,v]) => v));
-  if (maxV <= 0) return [];
-  return vals.filter(([,v]) => v === maxV).map(([k]) => k);
+function showTab(id,btn){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('pane-'+id).classList.add('active');
+  btn.classList.add('active');
+  if(id==='beiji'&&!window._bj)buildBeijiChart();
+  if(id==='zhong'&&!window._zh)buildZhongChart();
 }
-
-function fmtK(v) {
-  if (v === 0) return '-';
-  if (v === -1) return '*';
-  return v + 'k';
-}
-function fmtS(v, k) {
-  if (k === 0 || k === -1) return '-';
-  return v.toFixed(1) + '%';
-}
-
-function buildTable(tbodyId, dataObj, bestName, cols) {
-  // cols = array of station names in desired order
-  const tbody = document.getElementById(tbodyId);
-  HOURS.forEach((hlabel, hr) => {
-    const rank1 = getRank1(dataObj, hr);
-    const tr = document.createElement('tr');
-
-    // Hour cell
-    const tdH = document.createElement('td');
-    tdH.className = 'hour';
-    tdH.textContent = hlabel;
-    tr.appendChild(tdH);
-
-    cols.forEach(st => {
-      const [k, s] = dataObj[st][hr];
-      const isFirst = rank1.includes(st);
-      const isBest = (st === bestName);
-
-      let cls = '';
-      if (isFirst && isBest) cls = 'rank1-best';
-      else if (isFirst && !isBest) cls = 'rank1-rival';
-      else if (isBest) cls = 'best-cell';
-
-      const tdK = document.createElement('td');
-      tdK.className = cls;
-      tdK.textContent = (isFirst ? '★' : '') + fmtK(k);
-      tr.appendChild(tdK);
-
-      const tdS = document.createElement('td');
-      tdS.className = cls;
-      tdS.textContent = fmtS(s, k);
-      tr.appendChild(tdS);
-    });
-
-    // 第一名欄
-    const tdR = document.createElement('td');
-    if (rank1.length > 0 && dataObj[rank1[0]][hr][0] > 0) {
-      tdR.textContent = rank1.join('/');
-      tdR.style.fontWeight = 'bold';
-      tdR.style.color = rank1.includes(bestName) ? '#375623' : '#C00000';
-      tdR.style.background = rank1.includes(bestName) ? '#E2EFDA' : '#FCE4D6';
-    } else {
-      tdR.textContent = '-';
-    }
-    tr.appendChild(tdR);
-    tbody.appendChild(tr);
-  });
-}
-
-// 北基
-buildTable('north-tbody', NORTH, NORTH_BEST, ['好事989','飛碟台北台','寶島新聲','健康電台','臺北廣播電台']);
-// 中彰投
-buildTable('central-tbody', CENTRAL, CENTRAL_BEST, ['全國廣播','大千電台','城市廣播','好事903','南投廣播','真善美電台']);
-// 高屏（好事983 = 港都電台）
-buildTable('south-tbody', SOUTH, '港都電台', ['港都電台','南台灣之聲']);
-// 宜花東
-buildTable('east-tbody', EAST, EAST_BEST, ['好事935','太魯閣之音','北宜產業','台東知本']);
+new Chart(document.getElementById('overviewChart'),{type:'bar',data:{labels:['好事989','飛碟台北台','中廣流行網*','ICRT*','寶島新聲','臺北廣播','健康電台','中廣新聞網*','好事903','全國廣播','大千電台','城市廣播','南投廣播','真善美','中廣流行網*','ICRT*','中廣新聞網*','港都電台(983)','中廣流行網*','南台灣之聲','ICRT*','中廣新聞網*','北宜產業','好事935','中廣流行網*','太魯閣之音','台東知本'],datasets:[{label:'收聽人數 (k)',data:[281,215,183,153,91,83,55,38,217,201,182,145,119,109,220,84,41,346,114,70,53,15,30,28,23,7,4],backgroundColor:['#185FA5','#888780','#c8a020','#c8a020','#888780','#888780','#888780','#c8a020','#185FA5','#888780','#888780','#888780','#888780','#888780','#c8a020','#c8a020','#c8a020','#185FA5','#c8a020','#888780','#c8a020','#c8a020','#C0392B','#185FA5','#c8a020','#888780','#888780']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>{const isHoshi=[true,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,true,false,false,false,false,false,true,false,false,false];const isDagong=[false,false,true,true,false,false,false,true,false,false,false,false,false,false,true,true,true,false,true,false,true,true,false,false,true,false,false];const n=ctx.dataIndex;const type=isDagong[n]?'大功率':(isHoshi[n]?'好事陣營':'在地競對');return ctx.dataset.label+': '+ctx.raw+'k  ['+type+']';}}}}},scales:{x:{ticks:{font:{size:10},autoSkip:false,maxRotation:60},grid:{display:false}},y:{ticks:{callback:v=>v+'k'},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+function buildBeijiChart(){window._bj=new Chart(document.getElementById('beijiAgeChart'),{type:'bar',data:{labels:['好事989','飛碟台北台','寶島新聲','臺北廣播','健康電台'],datasets:[{label:'12–29歲',data:[5,8,4,6,3],backgroundColor:'#B5D4F4',stack:'s'},{label:'30–44歲',data:[28,31,22,30,18],backgroundColor:'#378ADD',stack:'s'},{label:'45–59歲',data:[44,40,42,38,45],backgroundColor:'#185FA5',stack:'s'},{label:'60歲+',data:[23,21,32,26,34],backgroundColor:'#0C447C',stack:'s'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{font:{size:10},boxWidth:9}}},scales:{x:{stacked:true},y:{stacked:true,max:100,ticks:{callback:v=>v+'%'}}}}});}
+function buildZhongChart(){window._zh=new Chart(document.getElementById('zhongAgeChart'),{type:'bar',data:{labels:['好事903','全國廣播','大千電台','城市廣播','南投廣播','真善美'],datasets:[{label:'12–29歲',data:[6,5,5,6,4,5],backgroundColor:'#B5D4F4',stack:'s'},{label:'30–44歲',data:[28,26,25,27,22,24],backgroundColor:'#378ADD',stack:'s'},{label:'45–59歲',data:[43,45,46,44,44,43],backgroundColor:'#185FA5',stack:'s'},{label:'60歲+',data:[23,24,24,23,30,28],backgroundColor:'#0C447C',stack:'s'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{font:{size:10},boxWidth:9}}},scales:{x:{stacked:true},y:{stacked:true,max:100,ticks:{callback:v=>v+'%'}}}}});}
 </script>
 </body>
 </html>
